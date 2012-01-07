@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: WTI Like Post
-Plugin URI: http://www.webtechideas.com/downloads/wordpress/wti-like-post/
+Plugin URI: http://www.webtechideas.com/wti-like-post-plugin/
 Description: WTI Like Post is a plugin for adding like (thumbs up) and unlike (thumbs down) functionality for wordpress posts/pages. On admin end alongwith handful of configuration settings, it will show maximum of 10 most liked posts/pages. If you have already liked a post/page and now you dislike it, then the old voting will be cancelled and vice-versa. It also has the option to reset the settings to default if needed. It comes with a widget to display the most liked posts/pages. It has live updation of like count on the widget if you like or dislike any post/page. It also comes with a language file for en-US(english- United States).
-Version: 1.0
-Author: Chittaranjan
+Version: 1.1
+Author: chittaranjan, webtechideas
 Author URI: http://www.webtechideas.com/
 License: GPLv2 or later
 
@@ -23,10 +23,11 @@ GNU General Public License for more details.
 
 #### INSTALLATION PROCESS ####
 /*
-1. Upload the directory '/wti_like_post/' to the '/wp-content/plugins/' directory
-2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Click on 'WTI Like Post' link under Settings menu to access the admin section
-4. On widgets section, there is a widget called 'Most Liked Posts' available which can be used to show most liked posts/pages
+1. Download the plugin and extract it
+2. Upload the directory '/wti_like_post/' to the '/wp-content/plugins/' directory
+3. Activate the plugin through the 'Plugins' menu in WordPress
+4. Click on 'WTI Like Post' link under Settings menu to access the admin section
+5. On widgets section, there is a widget called 'Most Liked Posts' available which can be used to show most liked posts
 */
 
 $wti_like_post_db_version = "1.0";
@@ -61,6 +62,7 @@ function SetOptionsWtiLikePost() {
      //adding options for the like post plugin
 	add_option('wti_like_post_jquery', '1', '', 'yes');
 	add_option('wti_like_post_voting_period', '0', '', 'yes');
+	add_option('wti_like_post_voting_style', 'style1', '', 'yes');
 	add_option('wti_like_post_alignment', 'left', '', 'yes');
 	add_option('wti_like_post_position', 'bottom', '', 'yes');
 	add_option('wti_like_post_login_required', '0', '', 'yes');
@@ -85,6 +87,7 @@ function UnsetOptionsWtiLikePost() {
      //deleting the added options on plugin uninstall
 	delete_option('wti_like_post_jquery');
 	delete_option('wti_like_post_voting_period');
+	delete_option('wti_like_post_voting_style');
 	delete_option('wti_like_post_alignment');
 	delete_option('wti_like_post_position');
 	delete_option('wti_like_post_login_required');
@@ -110,6 +113,7 @@ function WtiLikePostAdminRegisterSettings() {
      //registering the settings
 	register_setting( 'wti_like_post_options', 'wti_like_post_jquery' );
 	register_setting( 'wti_like_post_options', 'wti_like_post_voting_period' );
+	register_setting( 'wti_like_post_options', 'wti_like_post_voting_style' );
 	register_setting( 'wti_like_post_options', 'wti_like_post_alignment' );
 	register_setting( 'wti_like_post_options', 'wti_like_post_position' );
 	register_setting( 'wti_like_post_options', 'wti_like_post_login_required' );
@@ -172,6 +176,20 @@ function WtiLikePostAdminContent() {
 							<option value="1y" <?php if("1y" == $voting_period) echo "selected='selected'"; ?>>One Year</option>
 						</select>
 						 <span class="description"><?php _e('Select the voting period after which user can vote again.');?></span>
+					    </td>
+				       </tr>
+				       <tr valign="top">
+					    <th scope="row"><label><?php _e('Voting Style', 'wti_like_post'); ?></label></th>
+					    <td>
+						<?php
+						$voting_style = get_option('wti_like_post_voting_style');
+						?>
+						<select name="wti_like_post_voting_style" id="wti_like_post_voting_style">
+							<option value="style1" <?php if("style1" == $voting_style) echo "selected='selected'"; ?>>Style1</option>
+							<option value="style2" <?php if("style2" == $voting_style) echo "selected='selected'"; ?>>Style2</option>
+							<option value="style3" <?php if("style3" == $voting_style) echo "selected='selected'"; ?>>Style3</option>
+						</select>
+						 <span class="description"><?php _e('Select the voting style from 3 available options with 3 different sets of images.');?></span>
 					    </td>
 				       </tr>			
 				       <tr valign="top">
@@ -265,6 +283,7 @@ function WtiLikePostAdminContent() {
 			//reset the settings
 			document.getElementById('wti_like_post_jquery').value = 1;
 			document.getElementById('wti_like_post_voting_period').value = 0;
+			document.getElementById('wti_like_post_voting_style').value = 'style1';
 			document.getElementById('login_yes').checked = false;
 			document.getElementById('login_no').checked = true;
 			document.getElementById('wti_like_post_login_message').value = 'Please login to vote.';
@@ -286,7 +305,7 @@ function WtiLikePostAdminContent() {
 		return false;
 	}
 	</script>
-
+	
 	<div id="poststuff" class="ui-sortable meta-box-sortables">
 		<h3><?php _e('Most Liked Posts', 'wti_like_post');?></h3>
 		<?php
@@ -298,7 +317,6 @@ function WtiLikePostAdminContent() {
 		$post_count = count($posts);		
 	    
 		if(count($posts) > 0) {
-			//echo '<table width="100%" border="1">';
 			echo '<table cellspacing="0" class="wp-list-table widefat fixed likes">';
 			echo '<thead><tr><th>';
 			_e('Post Title', 'wti_like_post');
@@ -474,15 +492,16 @@ function GetWtiLikePost($arg = null) {
 		$unlike_count = GetWtiUnlikeCount($post_id);
 		$msg = GetWtiVotedMessage($post_id);
 		$alignment = ("left" == get_option('wti_like_post_alignment')) ? 'left' : 'right';
+		$style = (get_option('wti_like_post_voting_style') == "") ? 'style1' : get_option('wti_like_post_voting_style');
 	     
 		$wti_like_post .= "<div id='watch_action'>".
                          "<div id='watch_position' style='float:".$alignment."; '>".
                               "<div id='action_like' >".
-                              "<span class='like-".$post_id." like'><img id='like-".$post_id."' rel='like' class='lbg-default jlk' src='".WP_PLUGIN_URL."/wti_like_post/images/pixel.gif'></span>".
+                              "<span class='like-".$post_id." like'><img id='like-".$post_id."' rel='like' class='lbg-$style jlk' src='".WP_PLUGIN_URL."/wti_like_post/images/pixel.gif'></span>".
                               "<span id='lc-".$post_id."' class='lc'>".$like_count."</span>".
                          "</div>".
                          "<div id='action_unlike' >".
-                              "<span class='unlike-".$post_id." unlike'><img id='unlike-".$post_id."' rel='unlike' class='unlbg-default jlk' src='".WP_PLUGIN_URL."/wti_like_post/images/pixel.gif'></span> ".
+                              "<span class='unlike-".$post_id." unlike'><img id='unlike-".$post_id."' rel='unlike' class='unlbg-$style jlk' src='".WP_PLUGIN_URL."/wti_like_post/images/pixel.gif'></span>".
                               "<span id='unlc-".$post_id."' class='unlc'>".$unlike_count."</span>".
                          "</div> ".		                				
                     "</div> ".
