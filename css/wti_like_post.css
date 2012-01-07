@@ -25,28 +25,6 @@
 	cursor:pointer !important;	
 }
 
-/*** START FIRST THUMB UP/DOWN STYLE ***/	
-.lbg-default, .unlbg-default {
-	width: 16px;
-	height: 18px;	
-}
-.lbg-default {
-	background:url(../images/thumb_up2.png) no-repeat left top;	
-}
-
-.lbg-default:hover {
-	background:url(../images/thumb_up2.png) no-repeat left bottom;	
-}		
-
-.unlbg-default {
-	background:url(../images/thumb_down2.png) no-repeat left top;	
-}
-
-.unlbg-default:hover {
-	background:url(../images/thumb_down2.png) no-repeat left bottom;	
-}
-
-/*** END FIRST THUMB UP/DOWN STYLE ***/		
 .lc, .unlc {
 	float:left;
 	width: auto;
@@ -80,28 +58,94 @@
 	clear:both;
 }
 
-/** START Style2 STYLE **/
-.likeit_st2_thumb img,  .unlikeit_st2_thumb img{
-	width: 14px;
-	height: 100%;    
+/*** START FIRST THUMB UP/DOWN STYLE ***/	
+.lbg-, .unlbg-, .lbg-default, .unlbg-default {
+	width: 16px;
+	height: 18px;
 }
 
-.likeit_st2_thumb{
-	background:url(../images/st2_thum_up.png) repeat scroll 0 0;                
-	padding:0 0 3px 0;
+.lbg-, .lbg-default {
+	background:url(../images/thumb_up2.png) no-repeat left top;	
+}
+
+.lbg-:hover, .lbg-default:hover {
+	background:url(../images/thumb_up2.png) no-repeat left bottom;	
+}		
+
+.unlbg-, .unlbg-default {
+	background:url(../images/thumb_down2.png) no-repeat left top;	
+}
+
+.unlbg-:hover, .unlbg-default:hover {
+	background:url(../images/thumb_down2.png) no-repeat left bottom;	
+}
+/*** END FIRST THUMB UP/DOWN STYLE ***/
+
+/*** START FIRST THUMB UP/DOWN STYLE ***/	
+.lbg-style1, .unlbg-style1 {
+	width: 14px;
+	height: 16px;	
+}
+.lbg-style1 {
+	background:url(../images/thumb_up1.png) no-repeat left top;	
+}
+
+.lbg-style1:hover {
+	background:url(../images/thumb_up1.png) no-repeat left bottom;	
+}		
+
+.unlbg-style1 {
+	background:url(../images/thumb_down1.png) no-repeat left top;	
+}
+
+.unlbg-style1:hover {
+	background:url(../images/thumb_down1.png) no-repeat left bottom;	
+}
+
+/*** END FIRST THUMB UP/DOWN STYLE ***/		
+
+/** START Style2 STYLE **/
+.lbg-style2,  .unlbg-style2{
+	width: 16px;
+	height: 18px;    
+}
+
+.lbg-style2{
+	background:url(../images/thumb_up2.png) repeat scroll 0 0;
 }        
 
-.likeit_st2_thumb:hover{
-	background:url(../images/st2_thum_up.png) repeat scroll 0 -16px;
+.lbg-style2:hover{
+	background:url(../images/thumb_up2.png) repeat scroll 0 -18px;
 }
 
-.unlikeit_st2_thumb {
-	background:url(../images/st2_thum_down.png) repeat scroll 0 0;                
-	padding:0 0 3px 0;
+.unlbg-style2 {
+	background:url(../images/thumb_down2.png) repeat scroll 0 0;
 }
 
-.unlikeit_st2_thumb:hover {
-	background:url(../images/st2_thum_down.png) repeat scroll 0 -16px;
-
+.unlbg-style2:hover {
+	background:url(../images/thumb_down2.png) repeat scroll 0 -18px;
 }
 /** END Style2 STYLE**/
+
+/** START Style3 STYLE **/
+.lbg-style3,  .unlbg-style3{
+	width: 16px;
+	height: 18px;    
+}
+
+.lbg-style3{
+	background:url(../images/thumb_up3.png) repeat scroll 0 0;
+}        
+
+.lbg-style3:hover{
+	background:url(../images/thumb_up3.png) repeat scroll 0 -18px;
+}
+
+.unlbg-style3 {
+	background:url(../images/thumb_down3.png) repeat scroll 0 0;
+}
+
+.unlbg-style3:hover {
+	background:url(../images/thumb_down3.png) repeat scroll 0 -18px;
+}
+/** END Style3 STYLE**/
