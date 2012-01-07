@@ -13,6 +13,7 @@ A smooth ajax-based thumbs up/down functionality for wordpress posts/pages
 WTI Like Post is a plugin for adding like (thumbs up) and unlike (thumbs down) functionality for wordpress posts/pages. On admin end alongwith handful of configuration settings, it will show maximum of 10 most liked posts/pages. If you have already liked a post/page and now you dislike it, then the old voting will be cancelled and vice-versa. It also has the option to reset the settings to default if needed. It comes with a widget to display the most liked posts/pages. It has live updation of like count on the widget if you like or dislike any post/page. It also comes with a language file for en-US(english- United States).
 
 Some of the useful features:
+
 1. AJAX thumbs up/down functionality without refreshing your screen.
 2. AJAX updating the most liked posts widget without refreshing your screen.
 3. Wide range of voting period to allow users to revote after a specific period of time.
@@ -25,8 +26,7 @@ Some of the useful features:
 10. Option to show the thumbs up/down functionality on top of the content or at the bottom.
 11. Option to show the thumbs up/down functionality on left of the screen or right.
 
-Plugin URL: http://www.webtechideas.com/wti-like-post-plugin/
-Plugin download and manual is also available on the last page of the plugin url.
+Plugin URL: http://www.webtechideas.com/wti-like-post-plugin/ Plugin download and manual is also available on the last page of the plugin url.
 
 == Installation ==
 
