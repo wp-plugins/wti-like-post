@@ -16,7 +16,7 @@ jQuery(document).ready(function(){
           
           jQuery.ajax({
                type: "POST",
-               url: blog_url + "/wp-content/plugins/wti_like_post/wti_like.php",
+               url: blog_url + "/wp-content/plugins/wti-like-post/wti_like.php",
                data: "post_id=" + post_id + "&task=" + task + "&num=" + Math.random(),
                success: function(data){
 		    jQuery("#lc-" + post_id).html(data.like);

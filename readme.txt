@@ -1,10 +1,10 @@
 === WTI Like Post ===
-Contributors: chittaranjan, webtechideas
+Contributors: webtechideas
 Contributor's website: http://www.webtechideas.com/
 Tags: wti, like, post, wti like, like post, wti like post, wtilikepost, wp, wordpress, vote, thumb, webtechideas, web, tech, ideas
 Requires at least: 2.8
 Tested up to: 3.3.1
-Stable tag: 1.1
+Stable tag: 1.2
 
 A smooth ajax-based thumbs up/down functionality for wordpress posts/pages
 
@@ -18,6 +18,7 @@ Some of the useful features:
 * AJAX updating the most liked posts widget without refreshing your screen.
 * Wide range of voting period to allow users to revote after a specific period of time.
 * 3 different voting styles with 3 set of images.
+* Added shortcode for showing most liked posts interms of a page.
 * Allow or block guest users to vote.
 * Custom messages.
 * Option to show thumbs up/down functionality on pages or not.
@@ -43,8 +44,13 @@ Plugin URL: http://www.webtechideas.com/wti-like-post-plugin/ Plugin manual is a
 * Plugin frontend view
 * Widget admin view
 * Widget frontend view
+* Admin shortcode functionality
+* Showing most liked posts on a page
 
 == Changelog ==
+
+= 1.2 =
+* Added shortcode for showing most liked posts interms of a page. Also fixed issues with css file.
 
 = 1.1 =
 * Added 3 different voting styles with 3 sets of images

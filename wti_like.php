@@ -45,7 +45,7 @@ if($login_required && !$is_logged_in) {
 				
 				$can_vote = false;
 				$error = 1;
-				$msg = __('You can vote after', 'wti_like_post') . ' ' . ceil($revote_duration) . ' ' . __('day(s)', 'wti_like_post');
+				$msg = __('You can vote after', 'wti-like-post') . ' ' . ceil($revote_duration) . ' ' . __('day(s)', 'wti-like-post');
 			} else {
 				$can_vote = true;
 			}
@@ -90,7 +90,7 @@ if($can_vote) {
 		$msg = get_option('wti_like_post_thank_message');
 	} else {
 		$error = 1;
-		$msg = __('Could not process your vote', 'wti_like_post');
+		$msg = __('Could not process your vote', 'wti-like-post');
 	}
 }
 

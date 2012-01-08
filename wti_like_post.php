@@ -3,8 +3,8 @@
 Plugin Name: WTI Like Post
 Plugin URI: http://www.webtechideas.com/wti-like-post-plugin/
 Description: WTI Like Post is a plugin for adding like (thumbs up) and unlike (thumbs down) functionality for wordpress posts/pages. On admin end alongwith handful of configuration settings, it will show maximum of 10 most liked posts/pages. If you have already liked a post/page and now you dislike it, then the old voting will be cancelled and vice-versa. It also has the option to reset the settings to default if needed. It comes with a widget to display the most liked posts/pages. It has live updation of like count on the widget if you like or dislike any post/page. It also comes with a language file for en-US(english- United States).
-Version: 1.1
-Author: chittaranjan, webtechideas
+Version: 1.2
+Author: webtechideas
 Author URI: http://www.webtechideas.com/
 License: GPLv2 or later
 
@@ -35,7 +35,7 @@ $wti_like_post_db_version = "1.0";
 add_action( 'init', 'WtiLoadPluginTextdomain' );
 
 function WtiLoadPluginTextdomain() {
-     load_plugin_textdomain( 'wti_like_post', false, 'wti_like_post/lang' );
+     load_plugin_textdomain( 'wti-like-post', false, 'wti-like-post/lang' );
 }
 
 function SetOptionsWtiLikePost() {
@@ -134,28 +134,28 @@ function WtiLikePostAdminContent() {
      
 ?>
 <div class="wrap">
-	<h2><?php _e('WTI Like Post Options', 'wti_like_post');?></h2>
+	<h2><?php _e('WTI Like Post Options', 'wti-like-post');?></h2>
 	<br class="clear" />
 	
 	<div id="poststuff" class="ui-sortable meta-box-sortables">
 		<div id="WtiLikePostOptions" class="postbox">
-			<h3><?php _e('Configuration', 'wti_like_post'); ?></h3>
+			<h3><?php _e('Configuration', 'wti-like-post'); ?></h3>
 			<div class="inside">
 			     <form method="post" action="options.php">
 				  <?php settings_fields('wti_like_post_options'); ?>
 				  <table class="form-table">
 				       <tr valign="top">
-					    <th scope="row"><label for="wti_like_post_jquery"><?php _e('jQuery Framework', 'wti_like_post'); ?></label></th>
+					    <th scope="row"><label for="wti_like_post_jquery"><?php _e('jQuery Framework', 'wti-like-post'); ?></label></th>
 					    <td>
 						 <select name="wti_like_post_jquery" id="wti_like_post_jquery">
-						      <option value="1" <?php if(get_option('wti_like_post_jquery') == '1') { echo 'selected'; }?>><?php _e('Enabled', 'wti_like_post') ?></option>
-						      <option value="0" <?php if(get_option('wti_like_post_jquery') == '0') { echo 'selected'; }?>><?php _e('Disabled', 'wti_like_post') ?></option>
+						      <option value="1" <?php if(get_option('wti_like_post_jquery') == '1') { echo 'selected'; }?>><?php _e('Enabled', 'wti-like-post') ?></option>
+						      <option value="0" <?php if(get_option('wti_like_post_jquery') == '0') { echo 'selected'; }?>><?php _e('Disabled', 'wti-like-post') ?></option>
 						 </select>
-						 <span class="description"><?php _e('Disable it if you already have the jQuery framework enabled in your theme.', 'wti_like_post'); ?></span>
+						 <span class="description"><?php _e('Disable it if you already have the jQuery framework enabled in your theme.', 'wti-like-post'); ?></span>
 					    </td>
 				       </tr>
 				       <tr valign="top">
-					    <th scope="row"><label><?php _e('Voting Period', 'wti_like_post'); ?></label></th>
+					    <th scope="row"><label><?php _e('Voting Period', 'wti-like-post'); ?></label></th>
 					    <td>
 						<?php
 						$voting_period = get_option('wti_like_post_voting_period');
@@ -179,7 +179,7 @@ function WtiLikePostAdminContent() {
 					    </td>
 				       </tr>
 				       <tr valign="top">
-					    <th scope="row"><label><?php _e('Voting Style', 'wti_like_post'); ?></label></th>
+					    <th scope="row"><label><?php _e('Voting Style', 'wti-like-post'); ?></label></th>
 					    <td>
 						<?php
 						$voting_style = get_option('wti_like_post_voting_style');
@@ -193,7 +193,7 @@ function WtiLikePostAdminContent() {
 					    </td>
 				       </tr>			
 				       <tr valign="top">
-					    <th scope="row"><label><?php _e('Login required to vote', 'wti_like_post'); ?></label></th>
+					    <th scope="row"><label><?php _e('Login required to vote', 'wti-like-post'); ?></label></th>
 					    <td>	
 						 <input type="radio" name="wti_like_post_login_required" id="login_yes" value="1" <?php if(1 == get_option('wti_like_post_login_required')) { echo 'checked'; } ?> /> Yes
 						 <input type="radio" name="wti_like_post_login_required" id="login_no" value="0" <?php if((0 == get_option('wti_like_post_login_required')) || ('' == get_option('wti_like_post_login_required'))) { echo 'checked'; } ?> /> No
@@ -201,69 +201,69 @@ function WtiLikePostAdminContent() {
 					    </td>
 				       </tr>			
 				       <tr valign="top">
-					    <th scope="row"><label><?php _e('Login required message', 'wti_like_post'); ?></label></th>
+					    <th scope="row"><label><?php _e('Login required message', 'wti-like-post'); ?></label></th>
 					    <td>	
 						 <input type="text" size="40" name="wti_like_post_login_message" id="wti_like_post_login_message" value="<?php echo get_option('wti_like_post_login_message'); ?>" />
-						 <span class="description"><?php _e('Message to show in case login required and user is not logged in.', 'wti_like_post');?></span>
+						 <span class="description"><?php _e('Message to show in case login required and user is not logged in.', 'wti-like-post');?></span>
 					    </td>
 				       </tr>			
 				       <tr valign="top">
-					    <th scope="row"><label><?php _e('Thank you message', 'wti_like_post'); ?></label></th>
+					    <th scope="row"><label><?php _e('Thank you message', 'wti-like-post'); ?></label></th>
 					    <td>	
 						 <input type="text" size="40" name="wti_like_post_thank_message" id="wti_like_post_thank_message" value="<?php _e(get_option('wti_like_post_thank_message')); ?>" />
-						 <span class="description"><?php _e('Message to show after successful voting.', 'wti_like_post');?></span>
+						 <span class="description"><?php _e('Message to show after successful voting.', 'wti-like-post');?></span>
 					    </td>
 				       </tr>			
 				       <tr valign="top">
-					    <th scope="row"><label><?php _e('Already voted message', 'wti_like_post'); ?></label></th>
+					    <th scope="row"><label><?php _e('Already voted message', 'wti-like-post'); ?></label></th>
 					    <td>	
 						 <input type="text" size="40" name="wti_like_post_voted_message" id="wti_like_post_voted_message" value="<?php _e(get_option('wti_like_post_voted_message')); ?>" />
-						 <span class="description"><?php _e('Message to show if user has already voted.', 'wti_like_post');?></span>
+						 <span class="description"><?php _e('Message to show if user has already voted.', 'wti-like-post');?></span>
 					    </td>
 				       </tr>
 				       <tr valign="top">
-					    <th scope="row"><label><?php _e('Show on pages', 'wti_like_post'); ?></label></th>
+					    <th scope="row"><label><?php _e('Show on pages', 'wti-like-post'); ?></label></th>
 					    <td>	
 						 <input type="radio" name="wti_like_post_show_on_pages" id="show_pages_yes" value="1" <?php if(('1' == get_option('wti_like_post_show_on_pages'))) { echo 'checked'; } ?> /> Yes
 						 <input type="radio" name="wti_like_post_show_on_pages" id="show_pages_no" value="0" <?php if('0' == get_option('wti_like_post_show_on_pages') || ('' == get_option('wti_like_post_show_on_pages'))) { echo 'checked'; } ?> /> No
-						 <span class="description"><?php _e('Select yes if you want to show the like option on pages as well.', 'wti_like_post')?></span>
+						 <span class="description"><?php _e('Select yes if you want to show the like option on pages as well.', 'wti-like-post')?></span>
 					    </td>
 				       </tr>	
 				       <tr valign="top">
-					    <th scope="row"><label><?php _e('Exclude post/page IDs', 'wti_like_post'); ?></label></th>
+					    <th scope="row"><label><?php _e('Exclude post/page IDs', 'wti-like-post'); ?></label></th>
 					    <td>	
 						 <input type="text" size="40" name="wti_like_post_excluded_posts" id="wti_like_post_excluded_posts" value="<?php _e(get_option('wti_like_post_excluded_posts')); ?>" />
-						 <span class="description"><?php _e('Enter comma separated post/page ids where you do not want to show the like option. If Show on pages setting is set to Yes but you have added the page id here, then like option will not be shown for the same page.', 'wti_like_post');?></span>
+						 <span class="description"><?php _e('Enter comma separated post/page ids where you do not want to show the like option. If Show on pages setting is set to Yes but you have added the page id here, then like option will not be shown for the same page.', 'wti-like-post');?></span>
 					    </td>
 				       </tr>
 				       <tr valign="top">
-					    <th scope="row"><label><?php _e('Show excluded posts/pages on widget', 'wti_like_post'); ?></label></th>
+					    <th scope="row"><label><?php _e('Show excluded posts/pages on widget', 'wti-like-post'); ?></label></th>
 					    <td>	
 						 <input type="radio" name="wti_like_post_show_on_widget" id="show_widget_yes" value="1" <?php if(('1' == get_option('wti_like_post_show_on_widget')) || ('' == get_option('wti_like_post_show_on_widget'))) { echo 'checked'; } ?> /> Yes
 						 <input type="radio" name="wti_like_post_show_on_widget" id="show_widget_no" value="0" <?php if('0' == get_option('wti_like_post_show_on_widget')) { echo 'checked'; } ?> /> No
-						 <span class="description"><?php _e('Select yes if you want to show the excluded posts/pages on widget.', 'wti_like_post')?></span>
+						 <span class="description"><?php _e('Select yes if you want to show the excluded posts/pages on widget.', 'wti-like-post')?></span>
 					    </td>
 				       </tr>
 				       <tr valign="top">
-					    <th scope="row"><label><?php _e('Position Setting', 'wti_like_post'); ?></label></th>
+					    <th scope="row"><label><?php _e('Position Setting', 'wti-like-post'); ?></label></th>
 					    <td>	
 						 <input type="radio" name="wti_like_post_position" id="position_top" value="top" <?php if(('top' == get_option('wti_like_post_position')) || ('' == get_option('wti_like_post_position'))) { echo 'checked'; } ?> /> Top of Content
 						 <input type="radio" name="wti_like_post_position" id="position_bottom" value="bottom" <?php if('bottom' == get_option('wti_like_post_position')) { echo 'checked'; } ?> /> Bottom of Content
-						 <span class="description"><?php _e('Select the position where you want to show the like options.', 'wti_like_post')?></span>
+						 <span class="description"><?php _e('Select the position where you want to show the like options.', 'wti-like-post')?></span>
 					    </td>
 				       </tr>			
 				       <tr valign="top">
-					    <th scope="row"><label><?php _e('Alignment Setting', 'wti_like_post'); ?></label></th>
+					    <th scope="row"><label><?php _e('Alignment Setting', 'wti-like-post'); ?></label></th>
 					    <td>	
 						 <input type="radio" name="wti_like_post_alignment" id="alignment_left" value="left" <?php if(('left' == get_option('wti_like_post_alignment')) || ('' == get_option('wti_like_post_alignment'))) { echo 'checked'; } ?> /> Left
 						 <input type="radio" name="wti_like_post_alignment" id="alignment_right" value="right" <?php if('right' == get_option('wti_like_post_alignment')) { echo 'checked'; } ?> /> Right
-						 <span class="description"><?php _e('Select the alignment whether to show on left or on right.', 'wti_like_post')?></span>
+						 <span class="description"><?php _e('Select the alignment whether to show on left or on right.', 'wti-like-post')?></span>
 					    </td>
 				       </tr>
 				       <tr valign="top">
 					    <th scope="row">
-						 <input class="button-primary" type="submit" name="Save" value="<?php _e('Save Options', 'wti_like_post'); ?>" />
-						 <input type="submit" name="Reset" value="<?php _e('Reset Options', 'wti_like_post'); ?>" onclick="return confirmReset()" />
+						 <input class="button-primary" type="submit" name="Save" value="<?php _e('Save Options', 'wti-like-post'); ?>" />
+						 <input type="submit" name="Reset" value="<?php _e('Reset Options', 'wti-like-post'); ?>" onclick="return confirmReset()" />
 					    </th>
 					    <td></td>
 				       </tr>
@@ -276,7 +276,7 @@ function WtiLikePostAdminContent() {
 	function confirmReset()
 	{
 		//check whether user agrees to reset the settings to default or not
-		var check = confirm("<?php _e('Are you sure to reset the options to default settings?', 'wti_like_post')?>");
+		var check = confirm("<?php _e('Are you sure to reset the options to default settings?', 'wti-like-post')?>");
 		
 		if(check)
 		{
@@ -307,7 +307,7 @@ function WtiLikePostAdminContent() {
 	</script>
 	
 	<div id="poststuff" class="ui-sortable meta-box-sortables">
-		<h3><?php _e('Most Liked Posts', 'wti_like_post');?></h3>
+		<h3><?php _e('Most Liked Posts', 'wti-like-post');?></h3>
 		<?php
 		//getting the most liked posts
 		$query = "SELECT post_id, SUM(value) AS like_count, post_title FROM `wp_wti_like_post` L JOIN wp_posts P ";
@@ -319,9 +319,9 @@ function WtiLikePostAdminContent() {
 		if(count($posts) > 0) {
 			echo '<table cellspacing="0" class="wp-list-table widefat fixed likes">';
 			echo '<thead><tr><th>';
-			_e('Post Title', 'wti_like_post');
+			_e('Post Title', 'wti-like-post');
 			echo '</th><th>';
-			_e('Like Count', 'wti_like_post');
+			_e('Like Count', 'wti-like-post');
 			echo '</th><tr></thead>';
 			echo '<tbody class="list:likes" id="the-list">';
 			
@@ -339,7 +339,7 @@ function WtiLikePostAdminContent() {
 			echo '</tbody></table>';
 		} else {
 			echo '<p>';
-			_e('No posts liked yet', 'wti_like_post');
+			_e('No posts liked yet', 'wti-like-post');
 			echo '</p>';
 		}
 		?>
@@ -378,7 +378,7 @@ function WtiMostLikedPosts($number = 10, $before, $after, $show_count = 0, $retu
           }
      } else {
           $widget_data .= $before;
-	  $widget_data .= __('No posts liked yet', 'wti_like_post');
+	  $widget_data .= __('No posts liked yet', 'wti-like-post');
 	  $widget_data .= $after;
      }
      
@@ -396,7 +396,7 @@ function AddWidgetWtiMostLikedPosts() {
           
 		if (!is_array( $options )) {
 			$options = array(
-				'title' => __('Most Liked Posts', 'wti_like_post'),
+				'title' => __('Most Liked Posts', 'wti-like-post'),
 				'number' => '10',
 				'show_count' => '0'
 			);
@@ -423,7 +423,7 @@ function AddWidgetWtiMostLikedPosts() {
 		
 		if (!is_array( $options )) {
 			$options = array(
-                    'title' => __('Most Liked Posts', 'wti_like_post'),
+                    'title' => __('Most Liked Posts', 'wti-like-post'),
                     'number' => '10',
                     'show_count' => '0'
 			);
@@ -455,17 +455,17 @@ function AddWidgetWtiMostLikedPosts() {
           //widget option setting fields
 		?>
 		<p>
-               <label for="wti-title"><?php _e('Title', 'wti_like_post'); ?>:<br />
+               <label for="wti-title"><?php _e('Title', 'wti-like-post'); ?>:<br />
                <input class="widefat" type="text" id="wti-title" name="wti-title" value="<?php echo $options['title'];?>" /></label>
           </p>
 		
 		<p>
-               <label for="wti-number"><?php _e('Number of posts to show', 'wti_like_post'); ?>:<br />
+               <label for="wti-number"><?php _e('Number of posts to show', 'wti-like-post'); ?>:<br />
                <input type="text" id="wti-number" name="wti-number" style="width: 25px;" value="<?php echo $options['number'];?>" /> <small>(max. 10)</small></label>
           </p>
 		
 		<p>
-               <label for="wti-show-count"><input type="checkbox" id="wti-show-count" name="wti-show-count" value="1" <?php if($options['show_count'] == '1') echo 'checked="checked"'; ?> /> <?php _e('Show like count', 'wti_like_post'); ?></label>
+               <label for="wti-show-count"><input type="checkbox" id="wti-show-count" name="wti-show-count" value="1" <?php if($options['show_count'] == '1') echo 'checked="checked"'; ?> /> <?php _e('Show like count', 'wti-like-post'); ?></label>
           </p>
 		
 		<input type="hidden" id="wti-submit" name="wti-submit" value="1" />
@@ -497,11 +497,11 @@ function GetWtiLikePost($arg = null) {
 		$wti_like_post .= "<div id='watch_action'>".
                          "<div id='watch_position' style='float:".$alignment."; '>".
                               "<div id='action_like' >".
-                              "<span class='like-".$post_id." like'><img id='like-".$post_id."' rel='like' class='lbg-$style jlk' src='".WP_PLUGIN_URL."/wti_like_post/images/pixel.gif'></span>".
+                              "<span class='like-".$post_id." like'><img id='like-".$post_id."' rel='like' class='lbg-$style jlk' src='".WP_PLUGIN_URL."/wti-like-post/images/pixel.gif'></span>".
                               "<span id='lc-".$post_id."' class='lc'>".$like_count."</span>".
                          "</div>".
                          "<div id='action_unlike' >".
-                              "<span class='unlike-".$post_id." unlike'><img id='unlike-".$post_id."' rel='unlike' class='unlbg-$style jlk' src='".WP_PLUGIN_URL."/wti_like_post/images/pixel.gif'></span>".
+                              "<span class='unlike-".$post_id." unlike'><img id='unlike-".$post_id."' rel='unlike' class='unlbg-$style jlk' src='".WP_PLUGIN_URL."/wti-like-post/images/pixel.gif'></span>".
                               "<span id='unlc-".$post_id."' class='unlc'>".$unlike_count."</span>".
                          "</div> ".		                				
                     "</div> ".
@@ -655,17 +655,58 @@ function GetWtiNextVoteDate($last_voted_date, $voting_period) {
 	return $next_voting_date;
 }
 
+add_shortcode('most_liked_posts', 'WtiMostLikedPostsShortcode');
+
+function WtiMostLikedPostsShortcode($args) {
+     global $wpdb;
+     
+     if($args['limit']) {
+	  $limit = $args['limit'];
+     } else {
+	  $limit = 10;
+     }
+     
+     //getting the most liked posts
+     $query = "SELECT post_id, SUM(value) AS like_count, post_title FROM `wp_wti_like_post` L JOIN wp_posts P ";
+     $query .= "ON L.post_id = P.ID WHERE value > 0 $where GROUP BY post_id ORDER BY like_count DESC, post_title ASC LIMIT $limit";
+
+     $posts = $wpdb->get_results($query);
+ 
+     if(count($posts) > 0) {
+	  echo '<table>';
+	  echo '<tr>';
+	  echo '<td>' . __('Title', 'wti-like-post') .'</td>';
+	  echo '<td>' . __('Like Count', 'wti-like-post') .'</td>';
+	  echo '</tr>';
+	  
+          foreach ($posts as $post) {
+               $post_title = stripslashes($post->post_title);
+               $permalink = get_permalink($post->post_id);
+               $like_count = $post->like_count;
+               
+               echo '<tr>';
+	       echo '<td><a href="' . $permalink . '" title="' . $post_title.'" rel="nofollow">' . $post_title . '</a></td>';
+               echo '<td>' . $like_count . '</td>';
+               echo '</tr>';
+          }
+	  
+	  echo '</table>';
+     } else {
+	  echo '<p>' . __('No posts liked yet', 'wti-like-post') . '</p>';
+     }
+}
+
 function WtiLikePostEnqueueScripts() {
 	if (get_option('wti_like_post_jquery') == '1') {
-	    wp_enqueue_script('WtiLikePost', WP_PLUGIN_URL.'/wti_like_post/js/wti_like_post.js', array('jquery'));	
+	    wp_enqueue_script('WtiLikePost', WP_PLUGIN_URL.'/wti-like-post/js/wti_like_post.js', array('jquery'));	
 	}
 	else {
-	    wp_enqueue_script('WtiLikePost', WP_PLUGIN_URL.'/wti_like_post/js/wti_like_post.js');	
+	    wp_enqueue_script('WtiLikePost', WP_PLUGIN_URL.'/wti-like-post/js/wti_like_post.js');	
 	}
 }
 
 function WtiLikePostAddHeaderLinks() {
-	echo '<link rel="stylesheet" type="text/css" href="'.WP_PLUGIN_URL.'/wti_like_post/css/wti_like_post.css" media="screen" />'."\n";
+	echo '<link rel="stylesheet" type="text/css" href="'.WP_PLUGIN_URL.'/wti-like-post/css/wti_like_post.css" media="screen" />'."\n";
 	echo '<script type="text/javascript">';
 	echo 'var blog_url = \''.get_bloginfo('wpurl').'\'';
 	echo '</script>'."\n";
