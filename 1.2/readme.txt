@@ -32,7 +32,7 @@ Plugin URL: http://www.webtechideas.com/wti-like-post-plugin/ Plugin manual is a
 == Installation ==
 
 * Download the plugin and extract it.
-* Upload the directory '/wti_like_post/' to the '/wp-content/plugins/' directory.
+* Upload the directory '/wti-like-post/' to the '/wp-content/plugins/' directory.
 * Activate the plugin through the 'Plugins' menu in WordPress.
 * Click on 'WTI Like Post' link under Settings menu to access the admin section.
 * On widgets section, there is a widget called 'Most Liked Posts' available which can be used to show most liked posts.
