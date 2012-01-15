@@ -27,12 +27,12 @@ Some of the useful features:
 * Option to show the thumbs up/down functionality on top of the content or at the bottom.
 * Option to show the thumbs up/down functionality on left of the screen or right.
 
-Plugin URL: http://www.webtechideas.com/wti-like-post-plugin/ Plugin manual is also available for downloading on the last page of the plugin url.
+**Plugin URL:** http://www.webtechideas.com/wti-like-post-plugin/ Plugin manual is available for downloading on the last page of the plugin url.
 
 == Installation ==
 
 * Download the plugin and extract it.
-* Upload the directory '/wti_like_post/' to the '/wp-content/plugins/' directory.
+* Upload the directory '/wti-like-post/' to the '/wp-content/plugins/' directory.
 * Activate the plugin through the 'Plugins' menu in WordPress.
 * Click on 'WTI Like Post' link under Settings menu to access the admin section.
 * On widgets section, there is a widget called 'Most Liked Posts' available which can be used to show most liked posts.
@@ -51,6 +51,8 @@ Plugin URL: http://www.webtechideas.com/wti-like-post-plugin/ Plugin manual is a
 
 = 1.2 =
 * Added shortcode for showing most liked posts interms of a page. Also fixed issues with css file.
+* Removed the restriction on showing max 10 posts on the widget. Now you can show more number of posts.
+* Added fix for default wordpress table prefix.
 
 = 1.1 =
 * Added 3 different voting styles with 3 sets of images

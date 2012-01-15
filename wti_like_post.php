@@ -24,7 +24,7 @@ GNU General Public License for more details.
 #### INSTALLATION PROCESS ####
 /*
 1. Download the plugin and extract it
-2. Upload the directory '/wti_like_post/' to the '/wp-content/plugins/' directory
+2. Upload the directory '/wti-like-post/' to the '/wp-content/plugins/' directory
 3. Activate the plugin through the 'Plugins' menu in WordPress
 4. Click on 'WTI Like Post' link under Settings menu to access the admin section
 5. On widgets section, there is a widget called 'Most Liked Posts' available which can be used to show most liked posts
@@ -310,7 +310,7 @@ function WtiLikePostAdminContent() {
 		<h3><?php _e('Most Liked Posts', 'wti-like-post');?></h3>
 		<?php
 		//getting the most liked posts
-		$query = "SELECT post_id, SUM(value) AS like_count, post_title FROM `wp_wti_like_post` L JOIN wp_posts P ";
+		$query = "SELECT post_id, SUM(value) AS like_count, post_title FROM `{$wpdb->prefix}wti_like_post` L JOIN {$wpdb->prefix}posts P ";
 		$query .= "ON L.post_id = P.ID WHERE value > 0 GROUP BY post_id ORDER BY like_count DESC, post_title LIMIT 10";
 		
 		$posts = $wpdb->get_results($query);
@@ -361,7 +361,7 @@ function WtiMostLikedPosts($number = 10, $before, $after, $show_count = 0, $retu
 	}
 	
      //getting the most liked posts
-     $query = "SELECT post_id, SUM(value) AS like_count, post_title FROM `wp_wti_like_post` L JOIN wp_posts P ";
+     $query = "SELECT post_id, SUM(value) AS like_count, post_title FROM `{$wpdb->prefix}wti_like_post` L JOIN {$wpdb->prefix}posts P ";
      $query .= "ON L.post_id = P.ID WHERE value > 0 $where GROUP BY post_id ORDER BY like_count DESC, post_title ASC LIMIT $number";
 
      $posts = $wpdb->get_results($query);
@@ -436,7 +436,7 @@ function AddWidgetWtiMostLikedPosts() {
 			if (ctype_digit($_POST['wti-number'])) {
 				$options['number'] = ($_POST['wti-number']);
 			} else {
-				$options['number'] = '0';
+				$options['number'] = '10';
 			}
                
 			if (isset($_POST['wti-show-count'])) {
@@ -445,7 +445,7 @@ function AddWidgetWtiMostLikedPosts() {
 				$options['show_count'] = '0';
 			}
 
-			if ( $options['number'] > 10 || (int)$options['number'] == 0) {
+			if ((int)$options['number'] == 0) {
 				$options['number'] = 10;
 			}
 			
@@ -461,7 +461,7 @@ function AddWidgetWtiMostLikedPosts() {
 		
 		<p>
                <label for="wti-number"><?php _e('Number of posts to show', 'wti-like-post'); ?>:<br />
-               <input type="text" id="wti-number" name="wti-number" style="width: 25px;" value="<?php echo $options['number'];?>" /> <small>(max. 10)</small></label>
+               <input type="text" id="wti-number" name="wti-number" style="width: 25px;" value="<?php echo $options['number'];?>" /> <small>(Default. 10)</small></label>
           </p>
 		
 		<p>
@@ -667,7 +667,7 @@ function WtiMostLikedPostsShortcode($args) {
      }
      
      //getting the most liked posts
-     $query = "SELECT post_id, SUM(value) AS like_count, post_title FROM `wp_wti_like_post` L JOIN wp_posts P ";
+     $query = "SELECT post_id, SUM(value) AS like_count, post_title FROM `{$wpdb->prefix}wti_like_post` L JOIN {$wpdb->prefix}posts P ";
      $query .= "ON L.post_id = P.ID WHERE value > 0 $where GROUP BY post_id ORDER BY like_count DESC, post_title ASC LIMIT $limit";
 
      $posts = $wpdb->get_results($query);
