@@ -1,7 +1,7 @@
 === WTI Like Post ===
 Contributors: webtechideas
 Contributor's website: http://www.webtechideas.com/
-Tags: wti, like, post, wti like, like post, wti like post, wtilikepost, wp, wordpress, vote, thumb, webtechideas, web, tech, ideas
+Tags: wp like post, wordpress like post, wp like page, wordpress like page, wplikepost, wplikepage, wti, webtechideas
 Requires at least: 2.8
 Tested up to: 3.3.1
 Stable tag: 1.2
