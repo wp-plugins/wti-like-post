@@ -1,7 +1,7 @@
 === WTI Like Post ===
 Contributors: webtechideas
 Contributor's website: http://www.webtechideas.com/
-Tags: wp like post, wordpress like post, wp like page, wordpress like page, wplikepost, wplikepage, wti, webtechideas
+Tags: wp like post,wordpress like post,wp like page,wordpress like page,wplikepost,wplikepage,wti,webtechideas
 Requires at least: 2.8
 Tested up to: 3.3.1
 Stable tag: 1.2
