@@ -22,9 +22,6 @@ jQuery(document).ready(function(){
 		    jQuery("#lc-" + post_id).html(data.like);
 		    jQuery("#unlc-" + post_id).html(data.unlike);
                     jQuery("#status-" + post_id).removeClass("loading-img").empty().html(data.msg);
-                    if(jQuery(".wti-most-liked-posts")){
-                         jQuery(".wti-most-liked-posts").empty().html(data.widget_data);
-                    }
 	       },
                dataType: "json"
           });

@@ -98,11 +98,9 @@ $options = get_option("wti_most_liked_posts");
 $number = $options['number'];
 $show_count = $options['show_count'];
 
-$wti_widget_data = WtiMostLikedPosts($number, '<li>', '</li>', $show_count, true);
-
 $wti_like_count = GetWtiLikeCount($post_id);
 $wti_unlike_count = GetWtiUnlikeCount($post_id);
 
-$result = array("msg" => $msg, "error" => $error, "widget_data" => $wti_widget_data, "like" => $wti_like_count, "unlike" => $wti_unlike_count);
+$result = array("msg" => $msg, "error" => $error, "like" => $wti_like_count, "unlike" => $wti_unlike_count);
 
 echo json_encode($result);

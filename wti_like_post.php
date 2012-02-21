@@ -2,8 +2,8 @@
 /*
 Plugin Name: WTI Like Post
 Plugin URI: http://www.webtechideas.com/wti-like-post-plugin/
-Description: WTI Like Post is a plugin for adding like (thumbs up) and unlike (thumbs down) functionality for wordpress posts/pages. On admin end alongwith handful of configuration settings, it will show maximum of 10 most liked posts/pages. If you have already liked a post/page and now you dislike it, then the old voting will be cancelled and vice-versa. It also has the option to reset the settings to default if needed. It comes with a widget to display the most liked posts/pages. It has live updation of like count on the widget if you like or dislike any post/page. It also comes with a language file for en-US(english- United States).
-Version: 1.2
+Description: WTI Like Post is a plugin for adding like (thumbs up) and unlike (thumbs down) functionality for wordpress posts/pages. On admin end alongwith handful of configuration settings, it will show a list of most liked posts/pages. If you have already liked a post/page and now you dislike it, then the old voting will be cancelled and vice-versa. It also has the option to reset the settings to default if needed. It comes with a widget to display the most liked posts/pages. It also comes with a language file for en-US(english- United States).
+Version: 1.3
 Author: webtechideas
 Author URI: http://www.webtechideas.com/
 License: GPLv2 or later
@@ -36,6 +36,26 @@ add_action( 'init', 'WtiLoadPluginTextdomain' );
 
 function WtiLoadPluginTextdomain() {
      load_plugin_textdomain( 'wti-like-post', false, 'wti-like-post/lang' );
+}
+
+add_filter('plugin_action_links', 'wti_like_post_plugin_links', 10, 2);
+
+function wti_like_post_plugin_links($links, $file) {
+     static $this_plugin;
+
+     if (!$this_plugin) {
+	  $this_plugin = plugin_basename(__FILE__);
+     }
+
+     if ($file == $this_plugin) {
+	  // The "page" query string value must be equal to the slug
+	  // of the Settings admin page we defined earlier, which in
+	  // this case equals "myplugin-settings".
+	  $settings_link = '<a href="' . get_bloginfo('wpurl') . '/wp-admin/options-general.php?page=WtiLikePostAdminMenu">Settings</a>';
+	  array_unshift($links, $settings_link);
+     }
+
+     return $links;
 }
 
 function SetOptionsWtiLikePost() {
@@ -72,7 +92,8 @@ function SetOptionsWtiLikePost() {
 	add_option('wti_like_post_excluded_posts', '0', '', 'yes');
 	add_option('wti_like_post_show_on_pages', '0', '', 'yes');
 	add_option('wti_like_post_show_on_widget', '1', '', 'yes');
-	add_option('post_category', '', '', 'yes');	
+	add_option('wti_like_post_show_symbols', '1', '', 'yes');
+	add_option('wti_like_post_title_text', 'Like/Unlike', '', 'yes');
 	add_option('wti_like_post_db_version', $wti_like_post_db_version, '', 'yes');	
 }
 
@@ -98,7 +119,8 @@ function UnsetOptionsWtiLikePost() {
 	delete_option('wti_like_post_excluded_posts');
 	delete_option('wti_like_post_show_on_pages');
 	delete_option('wti_like_post_show_on_widget');
-	delete_option('post_category');
+	delete_option('wti_like_post_show_symbols');
+	delete_option('wti_like_post_title_text');
 }
 
 register_uninstall_hook(__FILE__, 'UnsetOptionsWtiLikePost');
@@ -124,7 +146,8 @@ function WtiLikePostAdminRegisterSettings() {
 	register_setting( 'wti_like_post_options', 'wti_like_post_show_on_pages' );
 	register_setting( 'wti_like_post_options', 'wti_like_post_show_on_widget' );
 	register_setting( 'wti_like_post_options', 'wti_like_post_db_version' );	
-	register_setting( 'wti_like_post_options', 'post_category' );	
+	register_setting( 'wti_like_post_options', 'wti_like_post_show_symbols' );	
+	register_setting( 'wti_like_post_options', 'wti_like_post_title_text' );	
 }
 add_action('admin_init', 'WtiLikePostAdminRegisterSettings');
 
@@ -259,13 +282,33 @@ function WtiLikePostAdminContent() {
 						 <input type="radio" name="wti_like_post_alignment" id="alignment_right" value="right" <?php if('right' == get_option('wti_like_post_alignment')) { echo 'checked'; } ?> /> Right
 						 <span class="description"><?php _e('Select the alignment whether to show on left or on right.', 'wti-like-post')?></span>
 					    </td>
+				       </tr>	
+				       <tr valign="top">
+					    <th scope="row"><label><?php _e('Title text for like/unlike images', 'wti-like-post'); ?></label></th>
+					    <td>	
+						 <input type="radio" name="wti_like_post_title_text" id="title_text_like_unlike" value="Like/Unlike" <?php if(('Like/Unlike' == get_option('wti_like_post_title_text')) || ('' == get_option('wti_like_post_title_text'))) { echo 'checked'; } ?> /> Like/Unlike
+						 <input type="radio" name="wti_like_post_title_text" id="title_text_true_false" value="True/False" <?php if('True/False' == get_option('wti_like_post_title_text')) { echo 'checked'; } ?> /> True/False
+						 <input type="radio" name="wti_like_post_title_text" id="title_text_yes_no" value="Yes/No" <?php if('Yes/No' == get_option('wti_like_post_title_text')) { echo 'checked'; } ?> /> Yes/No
+						 <input type="radio" name="wti_like_post_title_text" id="title_text_up_down" value="Up/Down" <?php if('Up/Down' == get_option('wti_like_post_title_text')) { echo 'checked'; } ?> /> Up/Down
+						 <input type="radio" name="wti_like_post_title_text" id="title_text_plus_minus" value="+/-" <?php if('+/-' == get_option('wti_like_post_title_text')) { echo 'checked'; } ?> /> +/-
+						 <span class="description"><?php _e('Select what text to show when user puts mouse over like/unlike image.', 'wti-like-post')?></span>
+					    </td>
+				       </tr>	
+				       <tr valign="top">
+					    <th scope="row"><label><?php _e('Show +/- symbols', 'wti-like-post'); ?></label></th>
+					    <td>	
+						 <input type="radio" name="wti_like_post_show_symbols" id="show_symbol_yes" value="1" <?php if(('1' == get_option('wti_like_post_show_symbols')) || ('' == get_option('wti_like_post_show_symbols'))) { echo 'checked'; } ?> /> Yes
+						 <input type="radio" name="wti_like_post_show_symbols" id="show_symbol_no" value="0" <?php if('0' == get_option('wti_like_post_show_symbols')) { echo 'checked'; } ?> /> No
+						 <span class="description"><?php _e('Select the option whether to show or hide the plus or minus symbols before like/unlike count.', 'wti-like-post')?></span>
+					    </td>
 				       </tr>
 				       <tr valign="top">
 					    <th scope="row">
-						 <input class="button-primary" type="submit" name="Save" value="<?php _e('Save Options', 'wti-like-post'); ?>" />
-						 <input type="submit" name="Reset" value="<?php _e('Reset Options', 'wti-like-post'); ?>" onclick="return confirmReset()" />
 					    </th>
-					    <td></td>
+					    <td>
+						 <input class="button-primary" type="submit" name="Save" value="<?php _e('Save Options', 'wti-like-post'); ?>" />
+						 <input class="button-secondary" type="submit" name="Reset" value="<?php _e('Reset Options', 'wti-like-post'); ?>" onclick="return confirmReset()" />
+					    </td>
 				       </tr>
 				  </table>
 			     </form>
@@ -298,45 +341,157 @@ function WtiLikePostAdminContent() {
 			document.getElementById('position_bottom').checked = true;
 			document.getElementById('alignment_left').checked = true;
 			document.getElementById('alignment_right').checked = false;
+			document.getElementById('show_symbol_yes').checked = true;
+			document.getElementById('show_symbol_no').checked = false;
+			document.getElementById('title_text_like_unlike').checked = true;
+			document.getElementById('title_text_yes_no').checked = false;
+			document.getElementById('title_text_true_false').checked = false;
+			document.getElementById('title_text_up_down').checked = false;
 			
 			return true;
 		}
 		
 		return false;
 	}
+	
+	function processAll()
+	{
+	  var cfm = confirm('<?php echo __('Are you sure to reset all the counts present in the database?')?>');
+	  
+	  if(cfm)
+	  {
+	       return true;
+	  }
+	  else
+	  {
+	       return false;
+	  }
+	}
+	
+	function processSelected()
+	{
+	  var cfm = confirm('<?php echo __('Are you sure to reset selected counts present in the database?')?>');
+	  
+	  if(cfm)
+	  {
+	       return true;
+	  }
+	  else
+	  {
+	       return false;
+	  }
+	}
 	</script>
 	
+	<?php
+	if(isset($_POST['resetall'])) {
+	  $status = $wpdb->query("TRUNCATE TABLE {$wpdb->prefix}wti_like_post");
+	  if($status) {
+	       echo '<div class="updated" id="message"><p>';
+	       echo __('All counts have been reset successfully');
+	       echo '</p></div>';
+	  } else {
+	       echo '<div class="error" id="error"><p>';
+	       echo __('All counts could not be reset');
+	       echo '</p></div>';
+	  }
+	}
+	if(isset($_POST['resetselected'])) {
+	  if(count($_POST['post_ids']) > 0) {
+	       $post_ids = implode(",", $_POST['post_ids']);
+	       $status = $wpdb->query("DELETE FROM {$wpdb->prefix}wti_like_post WHERE post_id IN ($post_ids)");
+	       if($status) {
+		    echo '<div class="updated" id="message"><p>';
+		    if($status > 1) {
+			 echo $status . ' ' . __('counts have been reset successfully');
+		    } else {
+			 echo $status . ' ' . __('count has been reset successfully');
+		    }
+		    echo '</p></div>';
+	       } else {
+		    echo '<div class="error" id="error"><p>';
+		    echo 'Selected counts could not be reset';
+		    echo '</p></div>';
+	       }
+	  } else {
+	       echo '<div class="error" id="error"><p>';
+	       echo __('Please select posts to reset count');
+	       echo '</p></div>';
+	  }
+	}
+	?>
+	
 	<div id="poststuff" class="ui-sortable meta-box-sortables">
-		<h3><?php _e('Most Liked Posts', 'wti-like-post');?></h3>
+		<h2><?php _e('Most Liked Posts', 'wti-like-post');?></h2>
 		<?php
 		//getting the most liked posts
-		$query = "SELECT post_id, SUM(value) AS like_count, post_title FROM `{$wpdb->prefix}wti_like_post` L JOIN {$wpdb->prefix}posts P ";
-		$query .= "ON L.post_id = P.ID WHERE value > 0 GROUP BY post_id ORDER BY like_count DESC, post_title LIMIT 10";
-		
-		$posts = $wpdb->get_results($query);
-		$post_count = count($posts);		
+		$query = "SELECT COUNT(post_id) AS total FROM `{$wpdb->prefix}wti_like_post` L JOIN {$wpdb->prefix}posts P ";
+		$query .= "ON L.post_id = P.ID WHERE value > 0";
+		$post_count = $wpdb->get_var($query);
 	    
-		if(count($posts) > 0) {
-			echo '<table cellspacing="0" class="wp-list-table widefat fixed likes">';
-			echo '<thead><tr><th>';
-			_e('Post Title', 'wti-like-post');
-			echo '</th><th>';
-			_e('Like Count', 'wti-like-post');
-			echo '</th><tr></thead>';
-			echo '<tbody class="list:likes" id="the-list">';
-			
-			foreach ($posts as $post) {
+		if($post_count > 0) {
+
+		    //pagination script
+		    $limit = get_option('posts_per_page');
+		    $current = max( 1, $_GET['paged'] );
+		    $total_pages = ceil($post_count / $limit);
+		    $start = $current * $limit - $limit;
+		    
+		    $query = "SELECT post_id, SUM(value) AS like_count, post_title FROM `{$wpdb->prefix}wti_like_post` L JOIN {$wpdb->prefix}posts P ";
+		    $query .= "ON L.post_id = P.ID WHERE value > 0 GROUP BY post_id ORDER BY like_count DESC, post_title LIMIT $start, $limit";
+		    $result = $wpdb->get_results($query);//new WP_Query($query);
+		    ?>
+		    <form method="post" action="<?php echo get_bloginfo('url')?>/wp-admin/options-general.php?page=WtiLikePostAdminMenu" name="most_liked_posts" id="most_liked_posts">
+			 <div style="float:left">
+			      <input class="button-secondary" type="submit" name="resetall" id="resetall" onclick="return processAll()" value="<?php echo __('Reset All Counts')?>" />
+			      <input class="button-secondary" type="submit" name="resetselected" id="resetselected" onclick="return processSelected()" value="<?php echo __('Reset Selected Counts')?>" />
+			 </div>
+			 <div style="float:right">
+			      <div class="tablenav top">
+				   <div class="tablenav-pages">
+					<span class="displaying-num"><?php echo $post_count?> items</span>
+					<?php
+					echo paginate_links(
+						       array(
+							    'current' 	=> $current,
+							    'prev_text'	=> '&laquo; ' . __('Prev'),
+							    'next_text'    => __('Next') . ' &raquo;',
+							    'base' 	=> @add_query_arg('paged','%#%'),
+							    'format'  	=> '?page=WtiLikePostAdminMenu',
+							    'total'   	=> $total_pages
+						       )
+					);
+					?>
+				   </div>
+			      </div>
+			 </div>
+			 <?php
+			 echo '<table cellspacing="0" class="wp-list-table widefat fixed likes">';
+			 echo '<thead><tr><th class="manage-column column-cb check-column" id="cb" scope="col">';
+			 echo '<input type="checkbox" id="checkall">';
+			 echo '</th><th>';
+			 _e('Post Title', 'wti-like-post');
+			 echo '</th><th>';
+			 _e('Like Count', 'wti-like-post');
+			 echo '</th><tr></thead>';
+			 echo '<tbody class="list:likes" id="the-list">';
+			 
+			 foreach ($result as $post) {
 				$post_title = stripslashes($post->post_title);
 				$permalink = get_permalink($post->post_id);
 				$like_count = $post->like_count;
 				
 				echo '<tr>';
+				echo '<th class="check-column" scope="row" align="center"><input type="checkbox" value="' . $post->post_id . '" class="administrator" id="post_id_' . $post->post_id . '" name="post_ids[]"></th>';
 				echo '<td><a href="' . $permalink . '" title="' . $post_title.'" rel="nofollow" target="_blank">' . $post_title . '</a></td>';
 				echo '<td>'.$like_count.'</td>';
 				echo '</tr>';
-			}
+			 }
 			
 			echo '</tbody></table>';
+			?>
+		    </form>
+		    <?php
 		} else {
 			echo '<p>';
 			_e('No posts liked yet', 'wti-like-post');
@@ -349,172 +504,55 @@ function WtiLikePostAdminContent() {
 }
 
 #### WIDGET ####
-function WtiMostLikedPosts($number = 10, $before, $after, $show_count = 0, $return = false) {
-	global $wpdb;
-	$widget_data = "";
-	
-	$show_excluded_posts = get_option('wti_like_post_show_on_widget');
-	$excluded_post_ids = explode(',', get_option('wti_like_post_excluded_posts'));
-	
-	if(!$show_excluded_posts && count($excluded_post_ids) > 0) {
-		$where = "AND post_id NOT IN (" . get_option('wti_like_post_excluded_posts') . ")";
-	}
-	
-     //getting the most liked posts
-     $query = "SELECT post_id, SUM(value) AS like_count, post_title FROM `{$wpdb->prefix}wti_like_post` L JOIN {$wpdb->prefix}posts P ";
-     $query .= "ON L.post_id = P.ID WHERE value > 0 $where GROUP BY post_id ORDER BY like_count DESC, post_title ASC LIMIT $number";
-
-     $posts = $wpdb->get_results($query);
- 
-     if(count($posts) > 0) {
-          foreach ($posts as $post) {
-               $post_title = stripslashes($post->post_title);
-               $permalink = get_permalink($post->post_id);
-               $like_count = $post->like_count;
-               
-               $widget_data .= $before.'<a href="' . $permalink . '" title="' . $post_title.'" rel="nofollow">' . $post_title . '</a>';
-               $widget_data .= $show_count == '1' ? ' ('.$like_count.')' : '';
-               $widget_data .= $after;
-          }
-     } else {
-          $widget_data .= $before;
-	  $widget_data .= __('No posts liked yet', 'wti-like-post');
-	  $widget_data .= $after;
-     }
-     
-     if($return) {
-	return $widget_data;
-     } else {
-	echo $widget_data;
-     }
-}
-
-function AddWidgetWtiMostLikedPosts() {
-	function WidgetWtiMostLikedPosts($args) {
-		extract($args);
-		$options = get_option("wti_most_liked_posts");
-          
-		if (!is_array( $options )) {
-			$options = array(
-				'title' => __('Most Liked Posts', 'wti-like-post'),
-				'number' => '10',
-				'show_count' => '0'
-			);
-		}
-          
-		$title = $options['title'];
-		$number = $options['number'];
-		$show_count = $options['show_count'];
-		
-		echo $before_widget;
-		echo $before_title . $title . $after_title;
-		echo '<ul class="wti-most-liked-posts">';
-
-		WtiMostLikedPosts($number, '<li>', '</li>', $show_count);
-		
-		echo '</ul>';
-		echo $after_widget;
-	}
-     
-	wp_register_sidebar_widget('WtiMostLikedPosts', 'Most Liked Posts', 'WidgetWtiMostLikedPosts');
-	
-	function OptionsWidgetWtiMostLikedPosts() {
-		$options = get_option("wti_most_liked_posts");
-		
-		if (!is_array( $options )) {
-			$options = array(
-                    'title' => __('Most Liked Posts', 'wti-like-post'),
-                    'number' => '10',
-                    'show_count' => '0'
-			);
-		}
-		
-          //processing the option settings for the widget
-		if (isset($_POST['wti-submit'])) {
-			$options['title'] = htmlspecialchars($_POST['wti-title']);
-               
-			if (ctype_digit($_POST['wti-number'])) {
-				$options['number'] = ($_POST['wti-number']);
-			} else {
-				$options['number'] = '10';
-			}
-               
-			if (isset($_POST['wti-show-count'])) {
-				$options['show_count'] = '1';
-			} else {
-				$options['show_count'] = '0';
-			}
-
-			if ((int)$options['number'] == 0) {
-				$options['number'] = 10;
-			}
-			
-			update_option("wti_most_liked_posts", $options);
-		}
-          
-          //widget option setting fields
-		?>
-		<p>
-               <label for="wti-title"><?php _e('Title', 'wti-like-post'); ?>:<br />
-               <input class="widefat" type="text" id="wti-title" name="wti-title" value="<?php echo $options['title'];?>" /></label>
-          </p>
-		
-		<p>
-               <label for="wti-number"><?php _e('Number of posts to show', 'wti-like-post'); ?>:<br />
-               <input type="text" id="wti-number" name="wti-number" style="width: 25px;" value="<?php echo $options['number'];?>" /> <small>(Default. 10)</small></label>
-          </p>
-		
-		<p>
-               <label for="wti-show-count"><input type="checkbox" id="wti-show-count" name="wti-show-count" value="1" <?php if($options['show_count'] == '1') echo 'checked="checked"'; ?> /> <?php _e('Show like count', 'wti-like-post'); ?></label>
-          </p>
-		
-		<input type="hidden" id="wti-submit" name="wti-submit" value="1" />
-		<?php
-	}
-     
-	wp_register_widget_control('WtiMostLikedPosts', 'Most Liked Posts', 'OptionsWidgetWtiMostLikedPosts');
-
-} 
-
-add_action('init', 'AddWidgetWtiMostLikedPosts');
+require_once ABSPATH . 'wp-content/plugins/wti-like-post/wti_like_class.php';
 
 #### FRONT-END VIEW ####
 function GetWtiLikePost($arg = null) {
-	global $wpdb;
-	$post_id = get_the_ID();	
-	$wti_like_post = "";
+     global $wpdb;
+     $post_id = get_the_ID();	
+     $wti_like_post = "";
 	
-	//get the posts ids where we do not need to show like functionality
-	$excluded_posts = explode(",", get_option('wti_like_post_excluded_posts'));
+     //get the posts ids where we do not need to show like functionality
+     $excluded_posts = explode(",", get_option('wti_like_post_excluded_posts'));
+     $title_text = get_option('wti_like_post_title_text');
 	
-	if(!in_array($post_id, $excluded_posts)) {		
-		$like_count = GetWtiLikeCount($post_id);
-		$unlike_count = GetWtiUnlikeCount($post_id);
-		$msg = GetWtiVotedMessage($post_id);
-		$alignment = ("left" == get_option('wti_like_post_alignment')) ? 'left' : 'right';
-		$style = (get_option('wti_like_post_voting_style') == "") ? 'style1' : get_option('wti_like_post_voting_style');
-	     
-		$wti_like_post .= "<div id='watch_action'>".
+     if(empty($title_text)) {
+	  $title_text_like = 'Like';
+	  $title_text_unlike = 'Unlike';
+     } else {
+	  $title_text = explode('/', get_option('wti_like_post_title_text'));
+	  $title_text_like = $title_text[0];
+	  $title_text_unlike = $title_text[1];
+     }
+	
+     if(!in_array($post_id, $excluded_posts)) {		
+	  $like_count = GetWtiLikeCount($post_id);
+	  $unlike_count = GetWtiUnlikeCount($post_id);
+	  $msg = GetWtiVotedMessage($post_id);
+	  $alignment = ("left" == get_option('wti_like_post_alignment')) ? 'left' : 'right';
+	  $style = (get_option('wti_like_post_voting_style') == "") ? 'style1' : get_option('wti_like_post_voting_style');
+       
+	  $wti_like_post .= "<div id='watch_action'>".
                          "<div id='watch_position' style='float:".$alignment."; '>".
                               "<div id='action_like' >".
-                              "<span class='like-".$post_id." like'><img id='like-".$post_id."' rel='like' class='lbg-$style jlk' src='".WP_PLUGIN_URL."/wti-like-post/images/pixel.gif'></span>".
+                              "<span class='like-".$post_id." like'><img title='".$title_text_like."' id='like-".$post_id."' rel='like' class='lbg-$style jlk' src='".WP_PLUGIN_URL."/wti-like-post/images/pixel.gif'></span>".
                               "<span id='lc-".$post_id."' class='lc'>".$like_count."</span>".
                          "</div>".
                          "<div id='action_unlike' >".
-                              "<span class='unlike-".$post_id." unlike'><img id='unlike-".$post_id."' rel='unlike' class='unlbg-$style jlk' src='".WP_PLUGIN_URL."/wti-like-post/images/pixel.gif'></span>".
+                              "<span class='unlike-".$post_id." unlike'><img title='".$title_text_unlike."' id='unlike-".$post_id."' rel='unlike' class='unlbg-$style jlk' src='".WP_PLUGIN_URL."/wti-like-post/images/pixel.gif'></span>".
                               "<span id='unlc-".$post_id."' class='unlc'>".$unlike_count."</span>".
                          "</div> ".		                				
                     "</div> ".
                     "<div id='status-".$post_id."' class='status' style='float:".$alignment."; '>&nbsp;&nbsp;" . $msg . "</div>".
                "</div>".
-               "<div id='clear'></div>";
-	}
+          "<div id='clear'></div>";
+     }
      
-	if ($arg == 'put') {
-		return $wti_like_post;
-	} else {
-		echo $wti_like_post;
-	}
+     if ($arg == 'put') {
+	  return $wti_like_post;
+     } else {
+	  echo $wti_like_post;
+     }
 }
 
 function PutWtiLikePost($content) {
@@ -544,12 +582,17 @@ add_filter('the_content', 'PutWtiLikePost');
 
 function GetWtiLikeCount($post_id) {
 	global $wpdb;
+	$show_symbols = get_option('wti_like_post_show_symbols');
 	$wti_like_count = $wpdb->get_var("SELECT SUM(value) FROM {$wpdb->prefix}wti_like_post WHERE post_id = '$post_id' AND value >= 0");
 	
 	if(!$wti_like_count) {
 		$wti_like_count = 0;
 	} else {
+	  if($show_symbols) {
 		$wti_like_count = "+" . $wti_like_count;
+	  } else {
+	       $wti_like_count = $wti_like_count;
+	  }
 	}
 	
 	return $wti_like_count;
@@ -557,10 +600,16 @@ function GetWtiLikeCount($post_id) {
 
 function GetWtiUnlikeCount($post_id) {
 	global $wpdb;
+	$show_symbols = get_option('wti_like_post_show_symbols');
 	$wti_unlike_count = $wpdb->get_var("SELECT SUM(value) FROM {$wpdb->prefix}wti_like_post WHERE post_id = '$post_id' AND value <= 0");
 	
 	if(!$wti_unlike_count) {
 		$wti_unlike_count = 0;
+	} else {
+	  if($show_symbols) {
+	  } else {
+	       $wti_unlike_count = str_replace('-', '', $wti_unlike_count);
+	  }
 	}
 	
 	return $wti_unlike_count;
