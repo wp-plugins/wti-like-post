@@ -98,6 +98,7 @@ class MostLikedPosts
 		}
 		
 		$widget_data .= '</ul>';
+          $widget_data .= $after_widget;
 		
 		echo $widget_data;
 	}
