@@ -54,11 +54,15 @@ if($login_required && !$is_logged_in) {
 }
 
 if($can_vote) {
+	$current_user = wp_get_current_user();
+	$user_id = (int)$current_user->ID;
+	
 	if($task == "like") {
 		if($has_already_voted) {
 			$query = "UPDATE {$wpdb->prefix}wti_like_post SET ";
 			$query .= "value = value + 1, ";
-			$query .= "date_time = '" . date('Y-m-d H:i:s') . "' ";
+			$query .= "date_time = '" . date('Y-m-d H:i:s') . "', ";
+			$query .= "user_id = '$user_id' ";
 			$query .= "WHERE post_id = '" . $post_id . "' AND ";
 			$query .= "ip = '$ip'";
 		} else {			
@@ -66,13 +70,15 @@ if($can_vote) {
 			$query .= "post_id = '" . $post_id . "', ";
 			$query .= "value = '1', ";
 			$query .= "date_time = '" . date('Y-m-d H:i:s') . "', ";
-			$query .= "ip = '$ip'";
+			$query .= "ip = '$ip', ";
+			$query .= "user_id = '$user_id'";
 		}
 	} else {
 		if($has_already_voted) {
 			$query = "UPDATE {$wpdb->prefix}wti_like_post SET ";
 			$query .= "value = value - 1, ";
-			$query .= "date_time = '" . date('Y-m-d H:i:s') . "' ";
+			$query .= "date_time = '" . date('Y-m-d H:i:s') . "', ";
+			$query .= "user_id = '$user_id' ";
 			$query .= "WHERE post_id = '" . $post_id . "' AND ";
 			$query .= "ip = '$ip'";
 		} else {
@@ -80,17 +86,18 @@ if($can_vote) {
 			$query .= "post_id = '" . $post_id . "', ";
 			$query .= "value = '-1', ";
 			$query .= "date_time = '" . date('Y-m-d H:i:s') . "', ";
-			$query .= "ip = '$ip'";
+			$query .= "ip = '$ip', ";
+			$query .= "user_id = '$user_id'";
 		}
 	}
-	
+	//echo $query;
 	$success = $wpdb->query($query);
 	if($success) {
 		$error = 0;
 		$msg = get_option('wti_like_post_thank_message');
 	} else {
 		$error = 1;
-		$msg = __('Could not process your vote', 'wti-like-post');
+		$msg = __('Could not process your vote.', 'wti-like-post');
 	}
 }
 
