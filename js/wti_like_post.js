@@ -19,10 +19,10 @@ jQuery(document).ready(function(){
                url: blog_url + "/wp-content/plugins/wti-like-post/wti_like.php",
                data: "post_id=" + post_id + "&task=" + task + "&num=" + Math.random(),
                success: function(data){
-		    jQuery("#lc-" + post_id).html(data.like);
-		    jQuery("#unlc-" + post_id).html(data.unlike);
+                    jQuery("#lc-" + post_id).html(data.like);
+                    jQuery("#unlc-" + post_id).html(data.unlike);
                     jQuery("#status-" + post_id).removeClass("loading-img").empty().html(data.msg);
-	       },
+               },
                dataType: "json"
           });
      });
