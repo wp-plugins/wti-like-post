@@ -61,8 +61,7 @@ if($can_vote) {
 		if($has_already_voted) {
 			$query = "UPDATE {$wpdb->prefix}wti_like_post SET ";
 			$query .= "value = value + 1, ";
-			$query .= "date_time = '" . date('Y-m-d H:i:s') . "', ";
-			$query .= "user_id = '$user_id' ";
+			$query .= "date_time = '" . date('Y-m-d H:i:s') . "' ";
 			$query .= "WHERE post_id = '" . $post_id . "' AND ";
 			$query .= "ip = '$ip'";
 		} else {			
@@ -70,15 +69,13 @@ if($can_vote) {
 			$query .= "post_id = '" . $post_id . "', ";
 			$query .= "value = '1', ";
 			$query .= "date_time = '" . date('Y-m-d H:i:s') . "', ";
-			$query .= "ip = '$ip', ";
-			$query .= "user_id = '$user_id'";
+			$query .= "ip = '$ip'";
 		}
 	} else {
 		if($has_already_voted) {
 			$query = "UPDATE {$wpdb->prefix}wti_like_post SET ";
 			$query .= "value = value - 1, ";
-			$query .= "date_time = '" . date('Y-m-d H:i:s') . "', ";
-			$query .= "user_id = '$user_id' ";
+			$query .= "date_time = '" . date('Y-m-d H:i:s') . "' ";
 			$query .= "WHERE post_id = '" . $post_id . "' AND ";
 			$query .= "ip = '$ip'";
 		} else {
@@ -86,8 +83,7 @@ if($can_vote) {
 			$query .= "post_id = '" . $post_id . "', ";
 			$query .= "value = '-1', ";
 			$query .= "date_time = '" . date('Y-m-d H:i:s') . "', ";
-			$query .= "ip = '$ip', ";
-			$query .= "user_id = '$user_id'";
+			$query .= "ip = '$ip'";
 		}
 	}
 	//echo $query;
