@@ -2,7 +2,7 @@
 Contributors: webtechideas
 Contributor's website: http://www.webtechideas.com/
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=webtechideas@gmail.com&item_name=WTI%20Like%20Post&return=http://www.webtechideas.com/thanks/
-Tags: wp like post,wordpress like post,wp like page,wordpress like page,wplikepost,wplikepage,wti,webtechideas,wp vote page,wp vote post,wordpress vote page,wordpress vote post,thumbs up, thumbs down
+Tags: wp like post,wordpress like post,wp like page,wordpress like page,wplikepost,wplikepage,wti,webtechideas,wp vote page,wp vote post,wordpress vote page,wordpress vote post,thumbs up, thumbs down, most liked posts, recently liked posts
 Requires at least: 2.8
 Tested up to: 3.3.1
 Stable tag: 1.4
@@ -14,26 +14,26 @@ A smooth ajax-based thumbs up/down functionality for wordpress posts/pages
 WTI Like Post is a plugin for adding like (thumbs up) and unlike (thumbs down) functionality for wordpress posts/pages. On admin end alongwith handful of configuration settings, it will show a list of most liked posts/pages. If you have already liked a post/page and now you dislike it, then the old voting will be cancelled and vice-versa. It also has the option to reset the settings to default if needed. You can reset the like counts for all/selected posts/pages. It comes with two widgets, one to display the most liked posts/pages for a given time range and another to show recently liked posts.
 
 Some of the useful features:
-* AJAX thumbs up/down functionality without refreshing your screen.
-* Wide range of voting period to allow users to revote after a specific period of time.
-* 3 different voting styles with 3 set of images.
-* Show/hide +/- symbols before like/unlike count.
-* Reset all/selected like and unlike counts.
-* Shortcode for showing most liked posts and recently liked posts on a page.
-* Allow or block guest users to vote.
-* Custom messages.
-* Show thumbs up/down functionality on pages or not.
-* Exclude specific posts/pages if you do not want this functionality to be shown there.
-* Show excluded posts/pages on widget section or not.
-* Show the thumbs up/down functionality on top of the content or at the bottom.
-* Show the thumbs up/down functionality on left of the screen or right.
-* Exclude specific sections like home, archive page not to show like/dislike functionality.
-* Excluded categories not to show like/dislike functionality for posts under those categories.
-* Allow specific posts from excluded categories to show like/dislike functionality.
-* Excluded like/dislike functionality on post/page add/edit interface.
-* Enter custom title text on hovering the like/unlike images.
-* English, French, Polish language files.
-* Widgets to show most liked posts and recently liked posts.
+* AJAX thumbs up/down functionality without refreshing your screen
+* Wide range of voting period to allow users to revote after a specific period of time
+* 3 different voting styles with 3 set of images
+* Show/hide +/- symbols before like/unlike count
+* Reset all/selected like and unlike counts
+* Shortcode for showing most liked posts and recently liked posts on a page
+* Allow or block guest users to vote
+* Custom messages
+* Show thumbs up/down functionality on pages or not
+* Exclude specific posts/pages if you do not want this functionality to be shown there
+* Show excluded posts/pages on widget section or not
+* Show the thumbs up/down functionality on top of the content or at the bottom
+* Show the thumbs up/down functionality on left of the screen or right
+* Exclude specific sections like home, archive page not to show like/dislike functionality
+* Excluded categories not to show like/dislike functionality for posts under those categories
+* Allow specific posts from excluded categories to show like/dislike functionality
+* Excluded like/dislike functionality on post/page add/edit interface
+* Enter custom title text on hovering the like/unlike images
+* English, French, Polish language files
+* Widgets to show most liked posts and recently liked posts
 
 **Language Files:**
 * en-US(english- United States)
