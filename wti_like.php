@@ -54,6 +54,9 @@ if($login_required && !$is_logged_in) {
 }
 
 if($can_vote) {
+	$current_user = wp_get_current_user();
+	$user_id = (int)$current_user->ID;
+	
 	if($task == "like") {
 		if($has_already_voted) {
 			$query = "UPDATE {$wpdb->prefix}wti_like_post SET ";
@@ -83,14 +86,14 @@ if($can_vote) {
 			$query .= "ip = '$ip'";
 		}
 	}
-	
+	//echo $query;
 	$success = $wpdb->query($query);
 	if($success) {
 		$error = 0;
 		$msg = get_option('wti_like_post_thank_message');
 	} else {
 		$error = 1;
-		$msg = __('Could not process your vote', 'wti-like-post');
+		$msg = __('Could not process your vote.', 'wti-like-post');
 	}
 }
 
