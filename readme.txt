@@ -11,9 +11,11 @@ A smooth ajax-based thumbs up/down functionality for wordpress posts/pages
 
 == Description ==
 
-WTI Like Post is a plugin for adding like (thumbs up) and unlike (thumbs down) functionality for wordpress posts/pages. On admin end alongwith handful of configuration settings, it will show a list of most liked posts/pages. If you have already liked a post/page and now you dislike it, then the old voting will be cancelled and vice-versa. It also has the option to reset the settings to default if needed. You can reset the like counts for all/selected posts/pages. It comes with two widgets, one to display the most liked posts/pages for a given time range and another to show recently liked posts.
+WTI Like Post is a plugin for adding like (thumbs up) and unlike (thumbs down) functionality for wordpress posts/pages. On admin end alongwith handful of configuration settings, it will show a list of most liked posts/pages. If you have already liked a post/page and now you dislike it, then the old voting will be cancelled and vice-versa.
 
-Some of the useful features:
+It also has the option to reset the settings to default if needed. You can reset the like counts for all/selected posts/pages. It comes with two widgets, one to display the most liked posts/pages for a given time range and another to show recently liked posts.
+
+**Some of the useful features:**
 * AJAX thumbs up/down functionality without refreshing your screen
 * Wide range of voting period to allow users to revote after a specific period of time
 * 3 different voting styles with 3 set of images
@@ -37,14 +39,17 @@ Some of the useful features:
 
 **Language Files:**
 * en-US(english- United States)
-* pl-PL(polish- Poland)
+* pl-PL(polish- Poland) By Krzysztof
 * fr-FR(french - French)
 
-**Plugin URL:** http://www.webtechideas.com/wti-like-post-plugin/ Plugin manual is available for downloading on the last page of the plugin url.
+**Plugin URL:**
+Plugin manual is available for downloading on the last page of the <a href="http://www.webtechideas.com/wti-like-post-plugin/" target="_blank">plugin url</a>
 
-**Author's Blog:** <a href="http://www.webtechideas.com/" target="_blank">Webtechideas</a>
+**Author's Blog:**
+<a href="http://www.webtechideas.com/" target="_blank">Webtechideas</a>
 
-**Author's Other Plugins:** <a href="http://wordpress.org/extend/plugins/wti-contact-back/" target="_blank">WTI Contact Back</a>
+**Author's Other Plugins:**
+<a href="http://wordpress.org/extend/plugins/wti-contact-back/" target="_blank">WTI Contact Back</a>
 
 == Installation ==
 
