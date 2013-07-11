@@ -38,6 +38,7 @@ WTI Like Post is a plugin for adding like (thumbs up) and unlike (thumbs down) f
 22. Functionality to see like count for each post in admin post list/edit section
 
 **PRO Plugin URL:** http://www.webtechideas.com/product/wti-like-post-pro/ PRO manual is available for downloading on the last section of the page.
+**PRO Plugin Demo URL:** http://demowp.webtechideas.com/
 
 = Standard features =
 1. AJAX thumbs up/down functionality without refreshing your screen
