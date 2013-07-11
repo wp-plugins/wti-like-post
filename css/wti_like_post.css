@@ -1,24 +1,32 @@
-#watch_action {
+.watch-action {
 	float: left;
 	width: 100%;
 	height: 100%;
 }
 
-#watch_action img {
+.watch-action img {
 	border:none !important;
 	padding: 0px !important;
 }
 
-#watch_action #watch_position {
+.watch-action .watch-position {
 	width:auto;
 }
 
-#action_like, #action_unlike {
+.align-left {
+	float: left;
+}
+
+.align-right {
+	float: right;
+}
+
+.action-like, .action-unlike {
 	float:left;
 	width:auto;
 }
 
-#action_unlike {
+.action-unlike {
 	padding-left:7px;	
 }
 
@@ -59,22 +67,22 @@
 	background:url(../images/loading.gif) no-repeat scroll 0 0 !important;
 	padding:0px 5px;
 }
-#clear {
+.wti-clear {
 	clear:both;
 }
 
-/*** START FIRST THUMB UP/DOWN STYLE ***/	
+/*** START DEFAULT THUMB UP/DOWN STYLE ***/	
 .lbg-, .unlbg-, .lbg-default, .unlbg-default {
 	width: 16px;
 	height: 18px;
 }
 
 .lbg-, .lbg-default {
-	background:url(../images/thumb_up2.png) no-repeat left top !important;	
+	background:url(../images/thumb_up1.png) no-repeat left top !important;	
 }
 
 .lbg-:hover, .lbg-default:hover {
-	background:url(../images/thumb_up2.png) no-repeat left bottom !important;	
+	background:url(../images/thumb_up1.png) no-repeat left bottom !important;	
 }		
 
 .unlbg-, .unlbg-default {
@@ -84,73 +92,105 @@
 .unlbg-:hover, .unlbg-default:hover {
 	background:url(../images/thumb_down2.png) no-repeat left bottom !important;	
 }
-/*** END FIRST THUMB UP/DOWN STYLE ***/
+
+.lbg- .lc, .lbg-default .lc {
+	color: green;
+}
+
+.unlbg- .unlc, .unlbg-default.unlc {
+	color: red;
+}
+/*** END DEFAULT THUMB UP/DOWN STYLE ***/
 
 /*** START FIRST THUMB UP/DOWN STYLE ***/	
-.lbg-style1, .unlbg-style1 {
+.lbg-style1 img,  .unlbg-style1 img{
 	width: 14px;
-	height: 16px;	
-}
-.lbg-style1 {
-	background:url(../images/thumb_up1.png) no-repeat left top !important;	
+	height: 16px;
+	float:left;
 }
 
-.lbg-style1:hover {
-	background:url(../images/thumb_up1.png) no-repeat left bottom !important;	
-}		
+.lbg-style1 img{
+	background:url(../images/thumb_up1.png) repeat scroll 0 0 !important;
+}        
 
-.unlbg-style1 {
-	background:url(../images/thumb_down1.png) no-repeat left top !important;	
+.lbg-style1 img:hover{
+	background:url(../images/thumb_up1.png) repeat scroll 0 -16px !important;
 }
 
-.unlbg-style1:hover {
-	background:url(../images/thumb_down1.png) no-repeat left bottom !important;	
+.unlbg-style1 img{
+	background:url(../images/thumb_down1.png) repeat scroll 0 0 !important;
 }
 
+.unlbg-style1 img:hover {
+	background:url(../images/thumb_down1.png) repeat scroll 0 -16px !important;
+}
+
+.lbg-style1 .lc {
+	color: green;
+}
+.unlbg-style1 .unlc {
+	color: red;		
+}
 /*** END FIRST THUMB UP/DOWN STYLE ***/		
 
 /** START Style2 STYLE **/
-.lbg-style2,  .unlbg-style2{
+.lbg-style2 img,  .unlbg-style2 img{
 	width: 16px;
-	height: 18px;    
+	height: 18px;
+	float:left;
 }
 
-.lbg-style2{
+.lbg-style2 img{
 	background:url(../images/thumb_up2.png) repeat scroll 0 0 !important;
 }        
 
-.lbg-style2:hover{
+.lbg-style2 img:hover{
 	background:url(../images/thumb_up2.png) repeat scroll 0 -18px !important;
 }
 
-.unlbg-style2 {
+.unlbg-style2 img{
 	background:url(../images/thumb_down2.png) repeat scroll 0 0 !important;
 }
 
-.unlbg-style2:hover {
+.unlbg-style2 img:hover {
 	background:url(../images/thumb_down2.png) repeat scroll 0 -18px !important;
+}
+
+.lbg-style2 .lc {
+	color: green;
+}
+.unlbg-style2 .unlc {
+	color: red;		
 }
 /** END Style2 STYLE**/
 
 /** START Style3 STYLE **/
-.lbg-style3,  .unlbg-style3{
+.lbg-style3 img,  .unlbg-style3 img{
 	width: 16px;
-	height: 18px;    
+	height: 18px;
+	float:left;
 }
 
-.lbg-style3{
+.lbg-style3 img{
 	background:url(../images/thumb_up3.png) repeat scroll 0 0 !important;
 }        
 
-.lbg-style3:hover{
+.lbg-style3 img:hover{
 	background:url(../images/thumb_up3.png) repeat scroll 0 -18px !important;
 }
 
-.unlbg-style3 {
+.unlbg-style3 img{
 	background:url(../images/thumb_down3.png) repeat scroll 0 0 !important;
 }
 
-.unlbg-style3:hover {
+.unlbg-style3 img:hover {
 	background:url(../images/thumb_down3.png) repeat scroll 0 -18px !important;
+}
+
+.lbg-style3 .lc {
+	color: green;
+}
+.unlbg-style3 .unlc {
+	color: red;		
 }
 /** END Style3 STYLE**/
