@@ -5,7 +5,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=support@
 Tags: wp like post,wordpress like post,wp like page,wordpress like page,wplikepost,wplikepage,wti,webtechideas,wp vote page,wp vote post,wordpress vote page,wordpress vote post,thumbs up, thumbs down, most liked posts, recently liked posts
 Requires at least: 3.8
 Tested up to: 4.2.2
-Stable tag: 1.4.2
+Stable tag: 1.4.3
 
 A smooth ajax-based thumbs up/down functionality for wordpress posts/pages. PRO version is also available.
 
