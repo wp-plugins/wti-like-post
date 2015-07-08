@@ -308,13 +308,7 @@ function WtiLikePostEnqueueScripts() {
 
      wp_enqueue_script( 'jquery' );
      wp_enqueue_script( 'wti_like_post_script' );
-}
-
-/**
- * Add the required stylesheet
- * @param void
- * @return void
- */
-function WtiLikePostAddHeaderLinks() {
-     echo '<link rel="stylesheet" type="text/css" href="' . plugins_url( 'css/wti_like_post.css', __FILE__) . '" media="screen" />';
+     
+     // Load css file
+     wp_enqueue_style( 'wti_like_post_script', plugins_url( 'css/wti_like_post.css', __FILE__ ) );
 }
