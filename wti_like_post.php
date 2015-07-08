@@ -239,7 +239,7 @@ if (is_admin()) {
 
 	// Load the js and css files
 	add_action('init', 'WtiLikePostEnqueueScripts');
-	add_action('wp_head', 'WtiLikePostAddHeaderLinks');
+	//add_action('wp_head', 'WtiLikePostAddHeaderLinks');
 }
 
 /**
