@@ -298,23 +298,18 @@ function WtiRecentlyLikedPostsShortcode($args) {
 }
 
 /**
- * Add the javascript for the plugin
+ * Add the javascript and css for the plugin
  * @param no-param
- * @return string
  */
 function WtiLikePostEnqueueScripts() {
+     // Load javascript file
      wp_register_script( 'wti_like_post_script', plugins_url( 'js/wti_like_post.js', __FILE__ ), array('jquery') );
      wp_localize_script( 'wti_like_post_script', 'wtilp', array( 'ajax_url' => admin_url( 'admin-ajax.php' )));
 
      wp_enqueue_script( 'jquery' );
      wp_enqueue_script( 'wti_like_post_script' );
-}
-
-/**
- * Add the required stylesheet
- * @param void
- * @return void
- */
-function WtiLikePostAddHeaderLinks() {
-     echo '<link rel="stylesheet" type="text/css" href="' . plugins_url( 'css/wti_like_post.css', __FILE__) . '" media="screen" />';
+     
+     // Load css file
+     wp_register_style( 'wti_like_post_style', plugins_url( 'css/wti_like_post.css', __FILE__ ) );
+     wp_enqueue_style( 'wti_like_post_style' );
 }

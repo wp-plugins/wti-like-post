@@ -548,7 +548,7 @@ function WtiLikePostSaveData($post_id) {
 	
 	if ($exclude_post == 1 && !in_array($post_id, $excluded_posts)) {
 		// Add this post/page id to the excluded list
-		$excluded_posts[] = $post_id;
+		$excluded_posts[] = (int) $post_id;
 		
 		if (!empty($excluded_posts)) {
 			// Since there are already excluded posts/pages, add this as a comma separated value
